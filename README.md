@@ -94,3 +94,4 @@ Congratulations! You can now experiment with Jenkins and your local Kubernetes c
 ## Troubleshooting
 
 "https://devopscube.com/jenkins-build-agents-kubernetes/"
+"https://www.youtube.com/watch?v=4E80gEen-o0&list=PL34sAs7_26wOuDEArkiGHjWtitsLsxGCL&index=7"
