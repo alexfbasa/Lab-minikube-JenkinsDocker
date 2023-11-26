@@ -18,13 +18,16 @@ You need to provision a Jenkins container and deploy to a Kubernetes cluster fro
 minikube start --base-image "gcr.io/k8s-minikube/kicbase:v0.0.32"
 ```
 
+For more version check `minikube-kicbase`(https://console.cloud.google.com/gcr/images/k8s-minikube/global/kicbase)
+
 2. **Run Jenkins Container:**
 
 ```bash
-docker run --name jenkins --rm -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock --env JENKINS_ADMIN_ID=admin --env JENKINS_ADMIN_PASSWORD='{{YOUR_PASSWORD}}' --network minikube alexsimple/jenkins_jcasc:v5
+docker run --name jenkins --rm -d -p 8080:8080 -p 50000:50000 -v jenkins_data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --env JENKINS_ADMIN_ID=admin --env JENKINS_ADMIN_PASSWORD='P@ssword2#J&N1ks' --network minikube alexsimple/jenkins_jcasc:v5
 ```
 
-The Jenkins container is configured as Code (JCasC) and comes with pre-installed plugins (e.g., Kubernetes). It runs in the same network as Minikube, enabling communication between both.
+The Jenkins container is configured as Code (JCasC) and comes with pre-installed plugins (e.g., Kubernetes). It runs in
+the same network as Minikube, enabling communication between both.
 
 3. **Configure Jenkins to Connect to Minikube:**
 
@@ -41,7 +44,7 @@ Edit the new file and look for the following parameters:
 certificate-authority: /home/user/.minikube/ca.crt
 ...
 users:
-- name: minikube
+  - name: minikube
 user:
 client-certificate: /home/user/.minikube/profiles/minikube/client.crt
 client-key: /home/user/.minikube/profiles/minikube/client.key
@@ -62,7 +65,7 @@ Update the Minikube configuration file with the base64-encoded content:
 certificate-authority-data: LS0tLS1CRUdJTiBDRV... #example
 ...
 users:
-- name: minikube
+  - name: minikube
 user:
 client-certificate-data: QjJZRWxjZ1o3Ckp4VDZBSj... #example
 client-key-data: BQTRJQkFRQmZ0bm9lczdYd04... #example
